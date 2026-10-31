@@ -1,0 +1,26 @@
+# Android / Gradle
+.gradle/
+local.properties
+**/build/
+.cxx/
+*.apk
+*.aab
+*.ap_
+*.dex
+
+# IDE
+.idea/
+*.iml
+.vscode/
+
+# Tests and local captures
+artifacts-*
+*.hprof
+
+# Reference code and downloaded models
+reference-profi/
+models/
+
+# OS
+.DS_Store
+Thumbs.db
