@@ -20,6 +20,7 @@ artifacts-*
 # Reference code and downloaded models
 reference-profi/
 models/
+test-data/
 
 # OS
 .DS_Store

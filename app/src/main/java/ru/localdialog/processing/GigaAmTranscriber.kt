@@ -61,6 +61,7 @@ class GigaAmTranscriber {
             ),
         )
         try {
+            android.util.Log.i("LocalDialog", "Diarization started: ${samples.size} samples")
             val diarization = diarizer.processWithCallback(samples, callback = { processed: Int, total: Int, _: Long ->
                 if (processed % 3 == 0 || processed == total) {
                     if (cancellation.get()) return@processWithCallback 1
@@ -69,6 +70,7 @@ class GigaAmTranscriber {
                 }
                 0
             })
+            android.util.Log.i("LocalDialog", "Diarization finished: ${diarization.size} segments")
             val speakerSpans = diarization.map { SpeakerSpan(it.start, it.end, it.speaker) }
             require(speakerSpans.isNotEmpty()) { "В записи не обнаружена речь" }
             onProgress(ProcessingProgress(ProcessingStage.RECOGNITION, 0.42f, "Загрузка ${model.name}"))
@@ -99,6 +101,7 @@ class GigaAmTranscriber {
                     )
                 }
                 onProgress(ProcessingProgress(ProcessingStage.MERGING, 0.97f, "Сопоставляем реплики и голоса"))
+                android.util.Log.i("LocalDialog", "Recognition finished: ${texts.size} text chunks")
                 val turns = DialogueAssembler.assemble(speakerSpans, texts)
                 require(turns.isNotEmpty()) { "Речь найдена, но текст не распознан. Попробуйте другую модель." }
                 return turns

@@ -13,7 +13,6 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.SupervisorJob
-import kotlinx.coroutines.cancel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
@@ -126,7 +125,7 @@ class TranscriptionService : Service() {
     }
 
     override fun onDestroy() {
-        scope.cancel()
+        job?.cancel()
         super.onDestroy()
     }
 

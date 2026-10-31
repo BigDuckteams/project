@@ -64,6 +64,18 @@ fun ModelsScreen(
                 }
             }
         }
+        if (download != null) item {
+            Card(colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.primary)) {
+                Column(Modifier.padding(18.dp)) {
+                    Text("Загрузка моделей", color = MaterialTheme.colorScheme.onPrimary, fontWeight = FontWeight.SemiBold)
+                    Text(download.target, color = MaterialTheme.colorScheme.onPrimary.copy(alpha = 0.8f), style = MaterialTheme.typography.bodySmall)
+                    Spacer(Modifier.height(10.dp))
+                    androidx.compose.material3.LinearProgressIndicator(progress = { download.fraction }, modifier = Modifier.fillMaxWidth())
+                    Spacer(Modifier.height(6.dp))
+                    Text("${(download.fraction * 100).toInt()}% · ${download.detail}", color = Lime, style = MaterialTheme.typography.labelMedium)
+                }
+            }
+        }
         items(ModelCatalog.models, key = { it.id }) { model ->
             val installed = revision >= 0 && repository.isSpeechInstalled(model)
             val selected = selectedId == model.id
